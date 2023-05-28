@@ -12,4 +12,4 @@ jobs:
           url: ${{ secrets.JENKINS_SERVER }}
           user: "lct"
           token: ${{ secrets.JENKINS_TOKEN }}
-          job: "deployHackwagonApi"
+          job: "deployPlumbierLanding"
