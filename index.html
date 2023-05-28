@@ -186,6 +186,7 @@
         let url = "/api/feedback";
         let request = new XMLHttpRequest();
         request.open('POST', url, true);
+        request.setRequestHeader('Content-Type', 'application/json')
         request.onload = function() {
             // request successful
             // we can use server response to our request now
@@ -195,7 +196,8 @@
             // request failed
         };
 
-        let formData = new FormData(event.target);
+        let formData = new FormData(event.target);  // grab FormData from form that triggered event
+        // build an object from the given formData
         let feedback = Object.fromEntries(
                         Array.from(formData.keys())
                               .map(
@@ -203,8 +205,8 @@
                               )
                       );
         let feedbackJson = JSON.stringify(feedback);
-        request.send(feedbackJson); // create FormData from form that triggered event
-        event.preventDefault();
+        request.send(feedbackJson);
+        //event.preventDefault();
     }
     // and you can attach form submit event like this for example
     function attachFormSubmitEvent(formId){
