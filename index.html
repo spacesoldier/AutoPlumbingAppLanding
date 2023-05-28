@@ -230,10 +230,16 @@
       document.getElementById(formId).addEventListener("submit", formSubmit);
       document.getElementById(formId).addEventListener("feedbackAccepted", () => hideElement(formId));
     }
-    // attach form submit event to display the success message block
-    function attachShowEventToBlock(eventSourceId, eventReceiverId){
-      document.getElementById(eventSourceId).addEventListener("feedbackAccepted", () => showElement(eventReceiverId));
+    // attach event display the block
+    function attachShowEventToBlock(eventName, eventSourceId, eventReceiverId){
+      document.getElementById(eventSourceId).addEventListener(eventName, () => showElement(eventReceiverId));
     }
+
+    // attach event to hide the block
+    function attachHideEventToBlock(eventName, eventSourceId, eventReceiverId){
+      document.getElementById(eventSourceId).addEventListener(eventName, () => hideElement(eventReceiverId));
+    }
+
     function clearFormFields(){
       // clear name field
       let feedbackNameInput = document.getElementById("feedback-name");
@@ -253,6 +259,7 @@
     }
     function askNewQuestion(){
       hideElement("success-feedback-msg");
+      hideElement("fail-feedback-msg")
       showElement("email-form");
     }
     function attachButtonClick(btnId, clickFn){
@@ -270,7 +277,8 @@
         () => {
                 console.log("DOM is ready, attach listeners");
                 attachFormSubmitEvent("email-form");
-                attachShowEventToBlock("email-form","success-feedback-msg");
+                attachShowEventToBlock("feedbackAccepted", "email-form","success-feedback-msg");
+                attachHideEventToBlock("feedbackAccepted", "email-form","fail-feedback-msg");
                 attachClearFormEvent("email-form");
                 attachButtonClick("new-question-btn",askNewQuestion);
         }
