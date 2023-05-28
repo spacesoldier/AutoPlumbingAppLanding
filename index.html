@@ -231,8 +231,8 @@
       document.getElementById(formId).addEventListener("feedbackAccepted", () => hideElement(formId));
     }
     // attach form submit event to display the success message block
-    function attachSuccessBlock(blockId){
-      document.getElementById(blockId).addEventListener("feedbackAccepted", () => showElement(blockId));
+    function attachShowEventToBlock(eventSourceId, eventReceiverId){
+      document.getElementById(eventSourceId).addEventListener("feedbackAccepted", () => showElement(eventReceiverId));
     }
     function clearFormFields(){
       // clear name field
@@ -270,7 +270,7 @@
         () => {
                 console.log("DOM is ready, attach listeners");
                 attachFormSubmitEvent("email-form");
-                attachSuccessBlock("success-feedback-msg");
+                attachShowEventToBlock("email-form","success-feedback-msg");
                 attachClearFormEvent("email-form");
                 attachButtonClick("new-question-btn",askNewQuestion);
         }
